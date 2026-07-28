@@ -1,0 +1,61 @@
+-- โหลด Rayfield UI Library
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+-- สร้าง Window หลัก
+local Window = Rayfield:CreateWindow({
+   Name = "Foxname Hub Loader",
+   LoadingTitle = "กำลังโหลด UI...",
+   LoadingSubtitle = "by Assistant",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = "FoxnameConfig",
+      FileName = "BigHub"
+   },
+   Discord = {
+      Enabled = false,
+      Invite = "noinvitelink",
+      RememberJoins = true
+   },
+   KeySystem = false
+})
+
+-- สร้าง Tab หลัก
+local MainTab = Window:CreateTab("Main", 4483362458) -- สามารถใส่ ID Icon ได้
+
+-- Section สำหรับรันสคริปต์
+local Section = MainTab:CreateSection("Script Controls")
+
+-- ปุ่มสำหรับรัน Foxname Hub
+local ExecuteButton = MainTab:CreateButton({
+   Name = "Execute Foxname Hub",
+   Callback = function()
+       -- รันสคริปต์ FoxnameHub ตามที่ระบุ
+       pcall(function()
+           loadstring(game:HttpGet("https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/FoxnameHub.lua"))()
+       end)
+       
+       Rayfield:Notify({
+          Title = "Success",
+          Content = "ทำการ Executed Foxname Hub เรียบร้อยแล้ว!",
+          Duration = 3,
+          Image = 4483362458,
+       })
+   end,
+})
+
+-- ปุ่มสำหรับ Re-join เซิร์ฟเวอร์ (ตัวอย่างฟังก์ชันเสริม)
+local RejoinButton = MainTab:CreateButton({
+   Name = "Rejoin Server",
+   Callback = function()
+       local TeleportService = game:GetService("TeleportService")
+       TeleportService:Teleport(game.PlaceId, game.Players.LocalPlayer)
+   end,
+})
+
+-- แจ้งเตือนเมื่อโหลดสคริปต์สำเร็จ
+Rayfield:Notify({
+   Title = "Loaded!",
+   Content = "UI พร้อมใช้งานแล้ว",
+   Duration = 5,
+   Image = 4483362458,
+})
